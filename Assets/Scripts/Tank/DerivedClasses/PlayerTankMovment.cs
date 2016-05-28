@@ -10,7 +10,7 @@ namespace Assets.Scripts.Tank.DerivedClasses {
         }
 
         public void FixedUpdate() {
-            if (PlayerNumber == 0)return;
+            if (PlayerNumber != 1)return;
             Move();
             Turn();
         }

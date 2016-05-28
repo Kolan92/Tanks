@@ -1,10 +1,12 @@
 ﻿using System;
+using Assets;
 using Assets.Scripts.Tank.Controllers;
 using Assets.Scripts.Tank.DerivedClasses;
 using Assets.Scripts.Tank.Interfaces;
 using UnityEngine;
 
 [Serializable]
+[RequireComponent(typeof(TankManager))]
 public class TankManager {
     // This class is to manage various settings on a tank.
     // It works with the GameManager class to control how the tanks behave
@@ -26,58 +28,47 @@ public class TankManager {
     public bool IsComputercontroled;
 
 
-    private TankMovement m_Movement;                        // Reference to tank's movement script, used to disable and enable control.
-    private PlayerTankMovment player;
-    private ComputerTankMovment computer;
-    private ITankMovement tankMovement;
-    private TankShooting m_Shooting;                        // Reference to tank's shooting script, used to disable and enable control.
-    private GameObject m_CanvasGameObject;                  // Used to disable the world space UI during the Starting and Ending phases of each round.
-    private ITankControler controller;
+    //private TankMovement m_Movement;                        // Reference to tank's movement script, used to disable and enable control.
+    //private PlayerTankMovment player;
+    //private ComputerTankMovment computer;
+    //private ITankMovement tankMovement;
+    //private TankShooting m_Shooting;                        // Reference to tank's shooting script, used to disable and enable control.
+    //private GameObject m_CanvasGameObject;                  // Used to disable the world space UI during the Starting and Ending phases of each round.
+
+    private TankController tankController;
 
     public void Setup() {
-        m_Shooting = m_Instance.GetComponent<TankShooting>();
-        m_Movement = m_Instance.GetComponent<TankMovement>();
-        m_CanvasGameObject = m_Instance.GetComponentInChildren<Canvas>().gameObject;
 
-        m_Shooting.isControledByComputer = IsComputercontroled;
-        m_Movement.PlayerNumber = m_PlayerNumber;
-        m_Shooting.m_PlayerNumber = m_PlayerNumber;
-        m_ColoredPlayerText = "<color=#" + ColorUtility.ToHtmlStringRGB(m_PlayerColor) + ">PLAYER " + m_PlayerNumber + "</color>";
+        m_ColoredPlayerText = string.Format(
+                Constants.ColoredPlayerName, ColorUtility.ToHtmlStringRGB(m_PlayerColor), m_PlayerNumber);
 
         var renderers = m_Instance.GetComponentsInChildren<MeshRenderer>();
         foreach (var item in renderers) {
             item.material.color = m_PlayerColor;
         }
 
+        tankController = m_Instance.GetComponent<TankController>();
+        tankController.Setup(IsComputercontroled, m_PlayerNumber);
+
         if (IsComputercontroled) {
-            tankMovement = m_Instance.GetComponent<ComputerTankMovment>();// as ComputerTankMovment;
-            //controller = new ComputerControler() {
-            //    TankMovement = m_Movement,
-            //    TankShooting = m_Shooting
-            //};
-        }
-        else {
-            tankMovement = m_Instance.GetComponent<PlayerTankMovment>();// as PlayerTankMovment;
-            //controller = new PlayerControler() {
-            //    TankMovement = m_Movement,
-            //    TankShooting = m_Shooting
-            //};
             m_Instance.tag = "Player";
         }
     }
 
     public void DisableControl() {
-        tankMovement.enabled = false;
-        m_Shooting.enabled = false;
+        //tankMovement.enabled = false;
+        //m_Shooting.enabled = false;
+        tankController.enabled = false;
 
-        m_CanvasGameObject.SetActive(false);
+        //m_CanvasGameObject.SetActive(false);
     }
 
     public void EnableControl() {
-        tankMovement.enabled = true;
-        m_Shooting.enabled = true;
+        //tankMovement.enabled = true;
+        //m_Shooting.enabled = true;
+        tankController.enabled = true;
 
-        m_CanvasGameObject.SetActive(true);
+        //m_CanvasGameObject.SetActive(true);
     }
 
     public void Reset() {

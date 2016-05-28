@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public class TankMovement : MonoBehaviour {
-    public int PlayerNumber = 1;              // Used to identify which tank belongs to which player.  This is set by this tank's manager.
+    public int PlayerNumber = 0;              // Used to identify which tank belongs to which player.  This is set by this tank's manager.
     //[HideInInspector]
     public float Speed = 12f;                 // How fast the tank moves forward and back.
     public float TurnSpeed = 180f;            // How fast the tank turns in degrees per second.
