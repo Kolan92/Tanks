@@ -4,35 +4,51 @@ using Assets.Scripts.Tank.Controllers;
 using Assets.Scripts.Tank.Interfaces;
 
 public class TankController : MonoBehaviour {
-    public IInputControler InputControler { get; set; }
-    public ITankModel TankModel { get; set; }
+    public IInputControler Input { get; set; }
+    public ITankModel Model { get; set; }
+    private Rigidbody Rigidbody { get; set; }
     
     public void Setup(bool isComputerControled, int playerNumber) {
-        var rigidbody = GetComponent<Rigidbody>();
-        TankModel = new TankModel() {
-            Rigidbody = rigidbody,
+        Rigidbody = GetComponent<Rigidbody>();
+
+        Model = new TankModel() {
             IsComputerControled = isComputerControled
         };
-        if (TankModel.IsComputerControled)
-            InputControler = new ComputerControler();
+
+        if (Model.IsComputerControled)
+            Input = new ComputerControler() {
+                _Rigidbody = Rigidbody
+            };
         else
-            InputControler = new PlayerControler(playerNumber);
+            Input = new PlayerControler(playerNumber);
 
         enabled = true;
     }
 
     private void Awake() {
         
-        TankModel = new TankModel();
+        Model = new TankModel();
         
         enabled = false;
     }
 
     private void FixedUpdate() {
-        //InputControler.GetMovment();
+        var movment = Input.GetMovment(Model.Speed, Rigidbody.transform.forward);
+        var rotation = Input.GetTurn(Model.TurnSpeed);
+
+        Move(movment);
+        Turn(rotation);
     }
 
     private void Update() {
+        Input.Update();
+    }
 
+    private void Turn(Quaternion rotation) {
+        Model.Rigidbody.MoveRotation(Model.Rigidbody.rotation * rotation);
+    }
+
+    private void Move(Vector3 movement) {
+        Model.Rigidbody.MovePosition(Model.Rigidbody.position + movement);
     }
 }

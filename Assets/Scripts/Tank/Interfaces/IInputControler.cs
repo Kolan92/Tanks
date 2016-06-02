@@ -8,6 +8,6 @@ namespace Assets.Scripts.Tank.Interfaces {
     public interface IInputControler {
         void Update();
         Vector3 GetMovment(float speed, Vector3 transform);
-        Quaternion GetTurn(float turnSpeed, Quaternion rotation);
+        Quaternion GetTurn(float turnSpeed);
     }
 }

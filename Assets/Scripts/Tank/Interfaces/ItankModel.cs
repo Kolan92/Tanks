@@ -10,12 +10,9 @@ namespace Assets.Scripts.Tank.Interfaces {
         float Armor { get; set; }
         int Ammunition { get; set; }
         float Speed { get; set; }
+        float TurnSpeed { get; set; }
         float Velocity { get; set; }
-        string MovementAxisName { get; set; }
-        string TurnAxisName { get; set; }
-        Rigidbody Rigidbody { get; set; }
-        float MovementInputValue { get; set; }
-        float TurnInputValue { get; set; }
+        //Rigidbody Rigidbody { get; set; }
         int PlayerNumber { get; set; }
         bool IsComputerControled { get; set; }
     }

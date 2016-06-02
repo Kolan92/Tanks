@@ -8,5 +8,6 @@ namespace Assets.Scripts.Tank.Controllers {
     public abstract class BaseInputControler {
         protected float _movementInputValue;         
         protected float _turnInputValue;
+        public  Rigidbody _Rigidbody;
     }
 }

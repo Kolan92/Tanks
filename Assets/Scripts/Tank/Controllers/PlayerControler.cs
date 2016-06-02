@@ -21,11 +21,12 @@ namespace Assets.Scripts.Tank.Controllers {
         }
 
         public Vector3 GetMovment(float speed, Vector3 transform) {
-            throw new NotImplementedException();
+            return transform * _movementInputValue * speed * Time.deltaTime;;
         }
 
-        public Quaternion GetTurn(float turnSpeed, Quaternion rotation) {
-            throw new NotImplementedException();
+        public Quaternion GetTurn(float turnSpeed) {
+            var turn = _turnInputValue * turnSpeed * Time.deltaTime;
+            return Quaternion.Euler(0f, turn, 0f);
         }
     }
 }
