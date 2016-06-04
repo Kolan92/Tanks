@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 
 namespace Assets.Scripts.Tank.Enums {
-    enum EnemyState {
+    public enum EnemyState {
         Idle,
         Patrol,
         Chase,
         Run,
-        Fight
+        Fight,
+        LookForEnemy
     }
 }

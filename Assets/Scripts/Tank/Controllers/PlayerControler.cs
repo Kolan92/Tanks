@@ -20,13 +20,20 @@ namespace Assets.Scripts.Tank.Controllers {
             _turnInputValue = Input.GetAxis(_turnAxisName);
         }
 
-        public Vector3 GetMovment(float speed, Vector3 transform) {
-            return transform * _movementInputValue * speed * Time.deltaTime;;
+        public void Execute(float speed, float turnSpeed) {
+            Move(speed);
+            Turn(turnSpeed);
         }
 
-        public Quaternion GetTurn(float turnSpeed) {
+        private void Move(float speed) {
+            var movement = _Rigidbody.transform.forward * _movementInputValue * speed * Time.deltaTime;
+            _Rigidbody.MovePosition(_Rigidbody.position + movement);
+        }
+
+        private void Turn(float turnSpeed) {
             var turn = _turnInputValue * turnSpeed * Time.deltaTime;
-            return Quaternion.Euler(0f, turn, 0f);
+            var turnRotation = Quaternion.Euler(0f, turn, 0f);
+            _Rigidbody.MoveRotation(_Rigidbody.rotation * turnRotation);
         }
     }
 }

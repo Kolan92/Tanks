@@ -1,5 +1,25 @@
-﻿namespace Assets.Scripts.Tank.AI {
-    public class ChaseState {
-        
+﻿using Assets.Scripts.Tank.Enums;
+using UnityEngine;
+
+namespace Assets.Scripts.Tank.AI {
+    public class ChaseState : BaseState {
+        public override StateStatus Status { get; set; }
+        public override EnemyState NextState { get; set; }
+
+        public ChaseState(Rigidbody rigidbody) : base(rigidbody) {
+
+        }
+
+        public override void UpdateState() {
+            throw new System.NotImplementedException();
+        }
+
+        public override void Execute() {
+            throw new System.NotImplementedException();
+        }
+
+        public override void GoToNextState() {
+            throw new System.NotImplementedException();
+        }
     }
 }

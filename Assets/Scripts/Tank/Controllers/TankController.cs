@@ -20,7 +20,9 @@ public class TankController : MonoBehaviour {
                 _Rigidbody = Rigidbody
             };
         else
-            Input = new PlayerControler(playerNumber);
+            Input = new PlayerControler(playerNumber){
+                _Rigidbody = Rigidbody
+            };
 
         enabled = true;
     }
@@ -33,22 +35,12 @@ public class TankController : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        var movment = Input.GetMovment(Model.Speed, Rigidbody.transform.forward);
-        var rotation = Input.GetTurn(Model.TurnSpeed);
-
-        Move(movment);
-        Turn(rotation);
+        Input.Execute(Model.Speed, Model.TurnSpeed);
+        //Input.Move(Model.Speed);
+        //Input.Turn(Model.TurnSpeed);
     }
 
     private void Update() {
         Input.Update();
-    }
-
-    private void Turn(Quaternion rotation) {
-        Model.Rigidbody.MoveRotation(Model.Rigidbody.rotation * rotation);
-    }
-
-    private void Move(Vector3 movement) {
-        Model.Rigidbody.MovePosition(Model.Rigidbody.position + movement);
     }
 }

@@ -7,7 +7,8 @@ using UnityEngine;
 namespace Assets.Scripts.Tank.Interfaces {
     public interface IInputControler {
         void Update();
-        Vector3 GetMovment(float speed, Vector3 transform);
-        Quaternion GetTurn(float turnSpeed);
+        void Execute(float speed, float turnSpeed);
+        //void Move(float speed);
+        //void Turn(float turnSpeed);
     }
 }

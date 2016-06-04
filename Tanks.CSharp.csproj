@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.4f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -84,20 +82,20 @@
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\Managers\TankManager.cs" />
     <Compile Include="Assets\Scripts\Shell\ShellExplosion.cs" />
+    <Compile Include="Assets\Scripts\Tank\AI\BaseState.cs" />
     <Compile Include="Assets\Scripts\Tank\AI\BehavioralTree.cs" />
     <Compile Include="Assets\Scripts\Tank\AI\ChaseState.cs" />
     <Compile Include="Assets\Scripts\Tank\AI\FightState.cs" />
-    <Compile Include="Assets\Scripts\Tank\AI\IdleState.cs" />
     <Compile Include="Assets\Scripts\Tank\AI\IEnemyState.cs" />
+    <Compile Include="Assets\Scripts\Tank\AI\IdleState.cs" />
+    <Compile Include="Assets\Scripts\Tank\AI\LookForEnemy.cs" />
     <Compile Include="Assets\Scripts\Tank\AI\PatrolState.cs" />
     <Compile Include="Assets\Scripts\Tank\AI\RunState.cs" />
     <Compile Include="Assets\Scripts\Tank\AI\Selector.cs" />
-    <Compile Include="Assets\Scripts\Tank\BaseClasses\TankMovementBase.cs" />
     <Compile Include="Assets\Scripts\Tank\Controllers\BaseInputControler.cs" />
     <Compile Include="Assets\Scripts\Tank\Controllers\ComputerControler.cs" />
     <Compile Include="Assets\Scripts\Tank\Controllers\PlayerControler.cs" />
-    <Compile Include="Assets\Scripts\Tank\DerivedClasses\ComputerTankMovment.cs" />
-    <Compile Include="Assets\Scripts\Tank\DerivedClasses\PlayerTankMovment.cs" />
+    <Compile Include="Assets\Scripts\Tank\Controllers\TankController.cs" />
     <Compile Include="Assets\Scripts\Tank\Enums\EnemyState.cs" />
     <Compile Include="Assets\Scripts\Tank\Enums\TankEvent.cs" />
     <Compile Include="Assets\Scripts\Tank\Interfaces\IInputControler.cs" />
@@ -106,7 +104,6 @@
     <Compile Include="Assets\Scripts\Tank\TankHealth.cs" />
     <Compile Include="Assets\Scripts\Tank\TankShooting.cs" />
     <Compile Include="Assets\Scripts\UI\UIDirectionControl.cs" />
-    <Compile Include="Assets\TankController.cs" />
     <Compile Include="Assets\TankModel.cs" />
     <Compile Include="Assets\TankView.cs" />
   </ItemGroup>

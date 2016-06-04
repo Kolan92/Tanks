@@ -8,5 +8,6 @@ namespace Assets {
         public const string ColoredPlayerName = "<color=#{0}>PLAYER {1}</color>";
         public const string VerticalAxisName = "Vertical";
         public const string HorizontalAxisName = "Horizontal";
+        public const string Player = "Player";
     }
 }
