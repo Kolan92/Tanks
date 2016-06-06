@@ -12,6 +12,5 @@ namespace Assets.Scripts.Tank.AI {
         EnemyState NextState { get; set; }
         void UpdateState();
         void Execute();
-        void GoToNextState();
     }
 }

@@ -12,7 +12,6 @@ namespace Assets.Scripts.Tank.Interfaces {
         float Speed { get; set; }
         float TurnSpeed { get; set; }
         float Velocity { get; set; }
-        //Rigidbody Rigidbody { get; set; }
         int PlayerNumber { get; set; }
         bool IsComputerControled { get; set; }
     }

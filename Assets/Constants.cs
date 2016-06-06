@@ -9,5 +9,7 @@ namespace Assets {
         public const string VerticalAxisName = "Vertical";
         public const string HorizontalAxisName = "Horizontal";
         public const string Player = "Player";
+        public const string Fire = "Fire";
+        public const string DispatcherException = "Trying to dispatch not assigned event function";
     }
 }

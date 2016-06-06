@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.4f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -72,13 +74,13 @@
     <Compile Include="Assets\Complete\Scripts\Camera\CameraControl.cs" />
     <Compile Include="Assets\Complete\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\Complete\Scripts\Managers\TankManager.cs" />
-    <Compile Include="Assets\Complete\Scripts\Shell\ShellExplosion.cs" />
     <Compile Include="Assets\Complete\Scripts\Tank\TankHealth.cs" />
     <Compile Include="Assets\Complete\Scripts\Tank\TankMovement.cs" />
     <Compile Include="Assets\Complete\Scripts\Tank\TankShooting.cs" />
     <Compile Include="Assets\Complete\Scripts\UI\UIDirectionControl.cs" />
     <Compile Include="Assets\Constants.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraControl.cs" />
+    <Compile Include="Assets\Scripts\Dispatcher.cs" />
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\Managers\TankManager.cs" />
     <Compile Include="Assets\Scripts\Shell\ShellExplosion.cs" />
@@ -96,8 +98,9 @@
     <Compile Include="Assets\Scripts\Tank\Controllers\ComputerControler.cs" />
     <Compile Include="Assets\Scripts\Tank\Controllers\PlayerControler.cs" />
     <Compile Include="Assets\Scripts\Tank\Controllers\TankController.cs" />
+    <Compile Include="Assets\Scripts\Tank\Enums\Distance.cs" />
     <Compile Include="Assets\Scripts\Tank\Enums\EnemyState.cs" />
-    <Compile Include="Assets\Scripts\Tank\Enums\TankEvent.cs" />
+    <Compile Include="Assets\Scripts\Tank\Enums\GameEventEnum.cs" />
     <Compile Include="Assets\Scripts\Tank\Interfaces\IInputControler.cs" />
     <Compile Include="Assets\Scripts\Tank\Interfaces\ITankMovement.cs" />
     <Compile Include="Assets\Scripts\Tank\Interfaces\ItankModel.cs" />

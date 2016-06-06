@@ -13,15 +13,11 @@ namespace Assets.Scripts.Tank.AI {
 
         public override void UpdateState() {
             Status = StateStatus.Sucess;
-            NextState = EnemyState.Patrol;
+            NextState = EnemyState.LookForEnemy;
         }
 
         public override void Execute() {
             //Do nothing
-        }
-
-        public override void GoToNextState() {
-            NextState = EnemyState.Patrol;
         }
     }
 }

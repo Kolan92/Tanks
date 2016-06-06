@@ -9,5 +9,6 @@ namespace Assets.Scripts.Tank.Controllers {
         protected float _movementInputValue;         
         protected float _turnInputValue;
         public Rigidbody _Rigidbody;
+        public Rigidbody Shell;
     }
 }

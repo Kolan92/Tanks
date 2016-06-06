@@ -16,15 +16,13 @@ namespace Assets.Scripts.Tank.AI {
         }
 
         public override void UpdateState() {
-            throw new NotImplementedException();
+            CalculateDistanceFromPlayer();
         }
 
         public override void Execute() {
-            throw new NotImplementedException();
-        }
-
-        public override void GoToNextState() {
-            throw new NotImplementedException();
+            NextState = DistanceFromPlayer < maxDistance ? EnemyState.Chase : EnemyState.Patrol;
+            Status = StateStatus.Sucess;
+            //NextState = EnemyState.Patrol;
         }
     }
 }

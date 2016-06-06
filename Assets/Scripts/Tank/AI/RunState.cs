@@ -17,9 +17,5 @@ namespace Assets.Scripts.Tank.AI {
         public override void Execute() {
             throw new System.NotImplementedException();
         }
-
-        public override void GoToNextState() {
-            throw new System.NotImplementedException();
-        }
     }
 }

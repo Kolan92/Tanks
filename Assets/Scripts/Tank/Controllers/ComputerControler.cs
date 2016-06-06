@@ -31,7 +31,7 @@ namespace Assets.Scripts.Tank.Controllers {
 
             switch (_currentState.NextState) {
                 case EnemyState.Fight:
-                        _currentState = new FightState(_Rigidbody);
+                    _currentState = new FightState(_Rigidbody, Shell);
                     break;
                 case EnemyState.Chase:
                         _currentState = new ChaseState(_Rigidbody);
