@@ -7,7 +7,7 @@ using Assets.Scripts.Tank.Enums;
 using Assets.Scripts.Tank.Interfaces;
 
 public class TankController : MonoBehaviour {
-    public IInputControler Input { get; set; }
+    public IInputControler InputController { get; set; }
     public ITankModel Model { get; set; }
 
     public Rigidbody Shell;
@@ -21,17 +21,12 @@ public class TankController : MonoBehaviour {
         };
 
         var safeShellPosition = new Vector3(0, - (100 - playerNumber), 0); //TODO Find a way to keep shell alive during game. 
+        var shell = Instantiate(Shell, safeShellPosition, Shell.rotation) as Rigidbody;
         if (Model.IsComputerControled) {
-            Input = new ComputerControler() {
-                _Rigidbody = Rigidbody,
-                Shell = Instantiate(Shell, safeShellPosition, Shell.rotation) as Rigidbody
-            };
+            InputController = new ComputerInputControler(Rigidbody, shell);
         }
         else {
-            Input = new PlayerControler(playerNumber) {
-                _Rigidbody = Rigidbody,
-                Shell = Instantiate(Shell, safeShellPosition, Shell.rotation) as Rigidbody
-            };
+            InputController = new PlayerInputControler(playerNumber, Rigidbody, shell);
         }
 
         enabled = true;
@@ -46,11 +41,11 @@ public class TankController : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        Input.Execute(Model.Speed, Model.TurnSpeed);
+        InputController.Execute(Model.Speed, Model.TurnSpeed);
     }
 
     private void Update() {
-        Input.Update();
+        InputController.Update();
     }
 
     void OnCollisionEnter(Collision collision) {

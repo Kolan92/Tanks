@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Tank.Enums;
+﻿using Assets.Scripts.Tank.Controllers;
+using Assets.Scripts.Tank.Enums;
 using UnityEngine;
 
 namespace Assets.Scripts.Tank.AI {
@@ -7,8 +8,10 @@ namespace Assets.Scripts.Tank.AI {
         public override EnemyState NextState { get; set; }
         private Rigidbody shell;
 
-        public FightState(Rigidbody rigidbody, Rigidbody Shell) : base(rigidbody) {
-            shell = Shell;
+        public delegate void WeponFiredHandler(object sender, WeponEventArgs args);
+        public event WeponFiredHandler OnWeaponFired;
+
+        public FightState(Rigidbody rigidbody) : base(rigidbody) {
         }
 
         public override void UpdateState() {
@@ -16,7 +19,7 @@ namespace Assets.Scripts.Tank.AI {
         }
 
         public override void Execute() {
-            Shoot();
+            TestShoot();
         }
 
         private void Shoot() {
@@ -25,6 +28,13 @@ namespace Assets.Scripts.Tank.AI {
             Rigidbody shellInstance = UnityEngine.Object.Instantiate(shell, position, Rigidbody.rotation) as Rigidbody;
 
             shellInstance.velocity = 30 * Rigidbody.transform.forward;
+        }
+
+        public void TestShoot() {
+            if(OnWeaponFired == null) return;
+
+            var args = new WeponEventArgs();
+            OnWeaponFired(this, args);
         }
     }
 }

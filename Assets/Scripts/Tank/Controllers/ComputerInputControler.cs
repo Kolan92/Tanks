@@ -8,11 +8,14 @@ using Assets.Scripts.Tank.Interfaces;
 using UnityEngine;
 
 namespace Assets.Scripts.Tank.Controllers {
-    public class ComputerControler : BaseInputControler, IInputControler {
+    public class ComputerInputControler : BaseInputControler, IInputControler {
         private IEnemyState _currentState;
+        
 
-        public ComputerControler() {
-            _currentState = new IdleState(_Rigidbody);
+        public ComputerInputControler(Rigidbody rigidbody, Rigidbody shell) 
+            : base(rigidbody){
+            _currentState = new IdleState(rigidbody);
+            _weaponController = new ComputerWeaponController(shell, rigidbody);
             
         }
         public void Update() {
@@ -24,6 +27,10 @@ namespace Assets.Scripts.Tank.Controllers {
             GoToTheNaxtState();
         }
 
+        private void ShootWeapon(object sender, WeponEventArgs args) {
+            _weaponController.Shoot();
+        }
+
         private void GoToTheNaxtState() {
             if (_currentState.Status == StateStatus.Running) {
                 return;
@@ -31,22 +38,25 @@ namespace Assets.Scripts.Tank.Controllers {
 
             switch (_currentState.NextState) {
                 case EnemyState.Fight:
-                    _currentState = new FightState(_Rigidbody, Shell);
+                    var state = new FightState(Rigidbody);
+                    state.OnWeaponFired += new FightState.WeponFiredHandler(ShootWeapon);
+                    //OnWeaponFired += new WeponEventArgs(state.TestShoot);
+                    _currentState = state;
                     break;
                 case EnemyState.Chase:
-                        _currentState = new ChaseState(_Rigidbody);
+                        _currentState = new ChaseState(Rigidbody);
                     break;
                 case EnemyState.Patrol:
-                        _currentState = new PatrolState(_Rigidbody);
+                        _currentState = new PatrolState(Rigidbody);
                     break;
                 case EnemyState.Idle:
-                        _currentState = new IdleState(_Rigidbody);
+                        _currentState = new IdleState(Rigidbody);
                     break;
                 case EnemyState.Run:
-                    _currentState = new RunState(_Rigidbody);
+                    _currentState = new RunState(Rigidbody);
                     break;
                 case EnemyState.LookForEnemy:
-                    _currentState = new LookForEnemy(_Rigidbody);
+                    _currentState = new LookForEnemy(Rigidbody);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

@@ -66,7 +66,7 @@ namespace Assets.Scripts.Tank.AI {
         }
 
         protected virtual void OnColision(object o) {
-            
+            //TODO maybe abstract?
         }
     }
 }

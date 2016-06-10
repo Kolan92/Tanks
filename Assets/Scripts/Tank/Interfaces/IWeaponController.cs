@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using UnityEngine;
 
 namespace Assets.Scripts.Tank.Interfaces {
-    public interface IInputControler {
+    public interface IWeaponController {
         void Update();
-        void Execute(float speed, float turnSpeed);
+        void Shoot();
+        void ChangeWeapon();
     }
 }
