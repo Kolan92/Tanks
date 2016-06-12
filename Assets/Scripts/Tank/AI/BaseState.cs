@@ -6,14 +6,16 @@ namespace Assets.Scripts.Tank.AI {
         public abstract StateStatus Status { get; set; }
         public abstract EnemyState NextState { get; set; }
         protected Distance Distance {
-            get{
+            get {
+                CalculateDistanceFromPlayer();
+
                 if (DistanceFromPlayer > maxDistance)
                     return Distance.TooFar;
                 if (DistanceFromPlayer < minDistance - distanceMargin)
                     return Distance.TooClose;
                 if (DistanceFromPlayer > minDistance + distanceMargin)
                     return Distance.InBeetween;
-                if(DistanceFromPlayer>minDistance)
+                if (DistanceFromPlayer > minDistance)
                     return Distance.CloseToFight;
                 return Distance.TooFar;
             }
@@ -23,9 +25,9 @@ namespace Assets.Scripts.Tank.AI {
         protected GameObject Player;
         protected float DistanceFromPlayer;
         protected int executeCounter;
-        protected const int maxDistance = 25;
+        protected const int maxDistance = 20;
         protected const int minDistance = 10;
-        protected const int distanceMargin = 5;
+        protected const int distanceMargin = 3;
         protected const float speed = 10;
         protected const float turnSpeed = 180;
 

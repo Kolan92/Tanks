@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Tank.Enums;
+﻿using System;
+using Assets.Scripts.Tank.Enums;
 using UnityEngine;
 
 namespace Assets.Scripts.Tank.AI {
@@ -13,30 +14,29 @@ namespace Assets.Scripts.Tank.AI {
         public override void UpdateState() {
             CalculateDistanceFromPlayer();
 
-            if (Distance == Distance.TooFar) {
-                NextState = EnemyState.LookForEnemy;
-                Status = StateStatus.Failed;
+            switch (Distance) {
+                case Distance.TooFar:
+                    NextState = EnemyState.LookForEnemy;
+                    break;
+                case Distance.InBeetween:
+                case Distance.TooClose:
+                    NextState = EnemyState.Fight;
+                    break;
+                case Distance.CloseToFight:
+                    NextState = EnemyState.Fight;
+                    Status = StateStatus.Sucess;
+                    break;
             }
-            if (Distance == Distance.CloseToFight || Distance == Distance.InBeetween) {
-                NextState = EnemyState.Fight;
-                Status = StateStatus.Sucess;
-            }
-            if(Distance == Distance.TooClose)
-                NextState = EnemyState.Fight;
-            else
-                NextState = EnemyState.Patrol;
-
         }
 
         public override void Execute() {
             Move();
-            executeCounter++;
+            ++executeCounter;
 
-            if (executeCounter > 50)
+            if (executeCounter > 50) 
                 Status = StateStatus.Failed;
-        }
+            }
 
-        
 
         protected override void Move() {
             if (Distance == Distance.TooClose) {

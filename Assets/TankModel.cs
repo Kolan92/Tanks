@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Scripts;
+using Assets.Scripts.Tank.Enums;
 using Assets.Scripts.Tank.Interfaces;
 
 public class TankModel : ITankModel {
@@ -20,5 +22,10 @@ public class TankModel : ITankModel {
         Speed = 20;
         TurnSpeed = 180;
         Velocity = 1;
+        Dispatcher.AddListener(GameEventEnum.RoundEnded, Reset);
+    }
+
+    private void Reset(object @object) {
+        HitPoints = 100;
     }
 }

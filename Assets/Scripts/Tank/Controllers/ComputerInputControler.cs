@@ -16,8 +16,13 @@ namespace Assets.Scripts.Tank.Controllers {
             : base(rigidbody){
             _currentState = new IdleState(rigidbody);
             _weaponController = new ComputerWeaponController(shell, rigidbody);
-            
+            Dispatcher.AddListener(GameEventEnum.RoundEnded, RestartState);
         }
+
+        private void RestartState(object @object) {
+            _currentState = new IdleState(Rigidbody);
+        }
+
         public void Update() {
             _currentState.UpdateState();
         }
@@ -39,8 +44,7 @@ namespace Assets.Scripts.Tank.Controllers {
             switch (_currentState.NextState) {
                 case EnemyState.Fight:
                     var state = new FightState(Rigidbody);
-                    state.OnWeaponFired += new FightState.WeponFiredHandler(ShootWeapon);
-                    //OnWeaponFired += new WeponEventArgs(state.TestShoot);
+                    state.OnWeaponFired += ShootWeapon;
                     _currentState = state;
                     break;
                 case EnemyState.Chase:

@@ -15,22 +15,18 @@ namespace Assets.Scripts.Tank.AI {
         }
 
         public override void UpdateState() {
+            if (Distance == Distance.TooFar) {
+                NextState = EnemyState.LookForEnemy;
+                Status = StateStatus.Failed;
+            }
             TurnToEnemy();
         }
 
         public override void Execute() {
-            TestShoot();
+            Shoot();
         }
 
-        private void Shoot() {
-
-            var position = Rigidbody.position + new Vector3(0, 2f, 0); //TODO Improve start position and rotation of the shell
-            Rigidbody shellInstance = UnityEngine.Object.Instantiate(shell, position, Rigidbody.rotation) as Rigidbody;
-
-            shellInstance.velocity = 30 * Rigidbody.transform.forward;
-        }
-
-        public void TestShoot() {
+        public void Shoot() {
             if(OnWeaponFired == null) return;
 
             var args = new WeponEventArgs();

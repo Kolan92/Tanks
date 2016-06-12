@@ -10,6 +10,8 @@ namespace Assets.Scripts.Tank.Enums {
         DemageObject,
         HealObject,
         PauseGame,
-        TankColison
+        TankColison,
+        RoundEnded,
+        GameEnded
     }
 }

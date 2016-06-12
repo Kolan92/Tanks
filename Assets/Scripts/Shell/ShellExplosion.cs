@@ -5,18 +5,24 @@ using UnityEngine;
 
 public class ShellExplosion : MonoBehaviour
 {
-    public LayerMask m_TankMask;                        // Used to filter what the explosion affects, this should be set to "Players".
-    public ParticleSystem m_ExplosionParticles;         // Reference to the particles that will play on explosion.
-    public AudioSource m_ExplosionAudio;                // Reference to the audio that will play on explosion.
-    public float m_MaxDamage = 100f;                    // The amount of damage done if the explosion is centred on a tank.
-    public float m_ExplosionForce = 1000f;              // The amount of force added to a tank at the centre of the explosion.
-    public float m_MaxLifeTime = 2f;                    // The time in seconds before the shell is removed.
-    public float m_ExplosionRadius = 5f;                // The maximum distance away from the explosion tanks can be and are still affected.
+    [SerializeField]
+    private GameObject ExplosionPrefab;
+    private ParticleSystem ExplosionParticles;
+
+    private void Awake() {
+        var tempParticles = ExplosionPrefab.GetComponent<ParticleSystem>();
+        ExplosionParticles = Instantiate(tempParticles);
+        ExplosionParticles.gameObject.SetActive(false);
+    }
 
     private void OnTriggerEnter (Collider other){
         Dispatcher.Dispatch(GameEventEnum.DemageObject, transform);
-      
-        Destroy (m_ExplosionParticles.gameObject, m_ExplosionParticles.duration);
+
+        ExplosionParticles.gameObject.SetActive(true);
+        ExplosionParticles.transform.position = transform.position;
+        ExplosionParticles.Play();
+
+        Destroy (ExplosionParticles.gameObject, ExplosionParticles.duration);
         Destroy(gameObject);
     }
 }

@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Assets.Scripts.Tank.Enums {
     public enum Distance {
-        TooFar,
-        TooClose,
-        InBeetween,
-        CloseToFight
+        TooFar = 1,
+        TooClose = 2,
+        InBeetween = 4,
+        CloseToFight = 8
     }
 }

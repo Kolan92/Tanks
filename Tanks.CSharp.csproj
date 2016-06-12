@@ -108,7 +108,7 @@
     <Compile Include="Assets\Scripts\Tank\Enums\GameEventEnum.cs" />
     <Compile Include="Assets\Scripts\Tank\Interfaces\IInputControler.cs" />
     <Compile Include="Assets\Scripts\Tank\Interfaces\ITankMovement.cs" />
-    <Compile Include="Assets\Scripts\Tank\Interfaces\ItankModel.cs" />
+    <Compile Include="Assets\Scripts\Tank\Interfaces\ITankModel.cs" />
     <Compile Include="Assets\Scripts\Tank\Interfaces\IWeaponController.cs" />
     <Compile Include="Assets\Scripts\Tank\TankHealth.cs" />
     <Compile Include="Assets\Scripts\Tank\TankShooting.cs" />

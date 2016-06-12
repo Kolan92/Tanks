@@ -10,18 +10,23 @@ public class TankController : MonoBehaviour {
     public IInputControler InputController { get; set; }
     public ITankModel Model { get; set; }
 
-    public Rigidbody Shell;
-    private Rigidbody Rigidbody { get; set; }
-    
+    private Rigidbody Rigidbody;
+    [SerializeField]
+    private Rigidbody Shell;
+    [SerializeField]
+    private GameObject ExplosionPrefab;
+    private ParticleSystem ExplosionParticles;
+
     public void Setup(bool isComputerControled, int playerNumber) {
         Rigidbody = GetComponent<Rigidbody>();
+
 
         Model = new TankModel() {
             IsComputerControled = isComputerControled
         };
 
-        var safeShellPosition = new Vector3(0, - (100 - playerNumber), 0); //TODO Find a way to keep shell alive during game. 
-        var shell = Instantiate(Shell, safeShellPosition, Shell.rotation) as Rigidbody;
+        var shell = Instantiate(Shell, Shell.position, Shell.rotation) as Rigidbody;
+        shell.gameObject.SetActive(false);
         if (Model.IsComputerControled) {
             InputController = new ComputerInputControler(Rigidbody, shell);
         }
@@ -37,6 +42,9 @@ public class TankController : MonoBehaviour {
 
     private void Awake() {
         Model = new TankModel();
+        Shell.gameObject.SetActive(false);
+        ExplosionParticles = Instantiate(ExplosionPrefab).GetComponent<ParticleSystem>();
+        ExplosionParticles.gameObject.SetActive(false);
         enabled = false;
     }
 
@@ -63,6 +71,16 @@ public class TankController : MonoBehaviour {
         damage = Mathf.Max(0f, damage);
 
         Model.HitPoints -= damage;
+        if(Model.HitPoints < 0)
+            Destroy();
+    }
+
+    private void Destroy() {
+        ExplosionParticles.transform.position = transform.position;
+        ExplosionParticles.gameObject.SetActive(true);
+
+        ExplosionParticles.Play();
+        gameObject.SetActive(false);
     }
 
     private void ApplayHealing(object o) {

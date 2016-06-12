@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using Assets.Scripts;
+using Assets.Scripts.Tank.Enums;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -138,7 +140,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private IEnumerator RoundEnding() {
-
+        Dispatcher.Dispatch(GameEventEnum.RoundEnded);
         DisableTankControl();
         m_RoundWinner = null;
         m_RoundWinner = GetRoundWinner();
