@@ -23,7 +23,8 @@ public class TankManager {
     public bool IsComputercontroled;
 
     private TankController tankController;
-
+    private TankCameraControler cameraControler;
+    
     public void Setup() {
 
         m_ColoredPlayerText = string.Format(
@@ -43,19 +44,11 @@ public class TankManager {
     }
 
     public void DisableControl() {
-        //tankMovement.enabled = false;
-        //m_Shooting.enabled = false;
         tankController.enabled = false;
-
-        //m_CanvasGameObject.SetActive(false);
     }
 
     public void EnableControl() {
-        //tankMovement.enabled = true;
-        //m_Shooting.enabled = true;
         tankController.enabled = true;
-
-        //m_CanvasGameObject.SetActive(true);
     }
 
     public void Reset() {
@@ -64,5 +57,11 @@ public class TankManager {
 
         m_Instance.SetActive(false);
         m_Instance.SetActive(true);
+    }
+
+    public void ActivateCamera() {
+        cameraControler = m_Instance.GetComponentInChildren<TankCameraControler>();
+        cameraControler.enabled = true;
+        cameraControler.Camera.gameObject.SetActive(true);
     }
 }

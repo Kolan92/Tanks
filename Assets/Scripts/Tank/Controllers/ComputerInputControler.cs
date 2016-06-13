@@ -8,11 +8,10 @@ using Assets.Scripts.Tank.Interfaces;
 using UnityEngine;
 
 namespace Assets.Scripts.Tank.Controllers {
-    public class ComputerInputControler : BaseInputControler, IInputControler {
+    public class ComputerMovmentControler : BaseInputControler, IMovmentControler {
         private IEnemyState _currentState;
         
-
-        public ComputerInputControler(Rigidbody rigidbody, Rigidbody shell) 
+        public ComputerMovmentControler(Rigidbody rigidbody, Rigidbody shell) 
             : base(rigidbody){
             _currentState = new IdleState(rigidbody);
             _weaponController = new ComputerWeaponController(shell, rigidbody);

@@ -7,7 +7,7 @@ using Assets.Scripts.Tank.Enums;
 using Assets.Scripts.Tank.Interfaces;
 
 public class TankController : MonoBehaviour {
-    public IInputControler InputController { get; set; }
+    public IMovmentControler MovmentController { get; set; }
     public ITankModel Model { get; set; }
 
     private Rigidbody Rigidbody;
@@ -16,6 +16,7 @@ public class TankController : MonoBehaviour {
     [SerializeField]
     private GameObject ExplosionPrefab;
     private ParticleSystem ExplosionParticles;
+    private TankView view;
 
     public void Setup(bool isComputerControled, int playerNumber) {
         Rigidbody = GetComponent<Rigidbody>();
@@ -27,18 +28,25 @@ public class TankController : MonoBehaviour {
 
         var shell = Instantiate(Shell, Shell.position, Shell.rotation) as Rigidbody;
         shell.gameObject.SetActive(false);
+        
         if (Model.IsComputerControled) {
-            InputController = new ComputerInputControler(Rigidbody, shell);
+            MovmentController = new ComputerMovmentControler(Rigidbody, shell);
+            
         }
         else {
-            InputController = new PlayerInputControler(playerNumber, Rigidbody, shell);
+            MovmentController = new PlayerMovmentControler(playerNumber, Rigidbody, shell);
+            
         }
 
         enabled = true;
 
+        InitializeView();
+
         Dispatcher.AddListener(GameEventEnum.HealObject, ApplayHealing);
         Dispatcher.AddListener(GameEventEnum.DemageObject, ApplayDamege);
     }
+
+
 
     private void Awake() {
         Model = new TankModel();
@@ -49,11 +57,11 @@ public class TankController : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        InputController.Execute(Model.Speed, Model.TurnSpeed);
+        MovmentController.Execute(Model.Speed, Model.TurnSpeed);
     }
 
     private void Update() {
-        InputController.Update();
+        MovmentController.Update();
     }
 
     void OnCollisionEnter(Collision collision) {
@@ -66,13 +74,16 @@ public class TankController : MonoBehaviour {
 
         var explosionToTarget = hitLocation.position - transform.position;
         var explosionDistance = explosionToTarget.magnitude;
-        var relativeDistance = (5 - explosionDistance) / 5; //TODO Remove constants
-        var damage = relativeDistance * 100;
+        var relativeDistance = (3 - explosionDistance) / 3; //TODO Remove constants
+        var damage = relativeDistance * 50;
         damage = Mathf.Max(0f, damage);
 
         Model.HitPoints -= damage;
         if(Model.HitPoints < 0)
             Destroy();
+
+        if(!Model.IsComputerControled)
+            view.UpdateHealth(Model.HitPoints);
     }
 
     private void Destroy() {
@@ -85,5 +96,11 @@ public class TankController : MonoBehaviour {
 
     private void ApplayHealing(object o) {
         throw new NotImplementedException();
+    }
+
+    private void InitializeView() {
+        view = GetComponentInChildren<TankView>();
+        view.StartingHealth = Model.HitPoints;
+        view.UpdateHealth(Model.HitPoints);
     }
 }

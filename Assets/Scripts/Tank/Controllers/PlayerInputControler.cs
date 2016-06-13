@@ -3,24 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Assets.Scripts.Tank.Interfaces;
+using InputMangers;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Tank.Controllers {
-    public class PlayerInputControler : BaseInputControler, IInputControler {
-        private readonly string _movementAxisName;
-        private readonly string _turnAxisName;
+    public class PlayerMovmentControler : BaseInputControler, IMovmentControler {
+        private readonly IInputManager _input;
 
-        public PlayerInputControler(int playerNumber, Rigidbody rigidbody, Rigidbody shell) 
-            : base(rigidbody){
-            _movementAxisName = Constants.VerticalAxisName + playerNumber;
-            _turnAxisName = Constants.HorizontalAxisName + playerNumber;
+        public PlayerMovmentControler(int playerNumber, Rigidbody rigidbody, Rigidbody shell) 
+            : base(rigidbody) {
+            _input = InputFactory.GetInputManager(playerNumber);
             _weaponController = new PlayerWeaponController(playerNumber, shell, rigidbody);
         }
 
         public void Update() {
-            _movementInputValue = Input.GetAxis(_movementAxisName);
-            _turnInputValue = Input.GetAxis(_turnAxisName);
+            _movementInputValue = _input.Vertical;
+            _turnInputValue = _input.Horizontal;
             _weaponController.Update();
         }
 

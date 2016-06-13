@@ -88,6 +88,9 @@ public class GameManager : MonoBehaviour {
             if (isVsComputerGame && i == tanksCount-1) {
                 m_Tanks[i].IsComputercontroled = true;
             }
+            if (isVsComputerGame && i==0){
+                m_Tanks[i].ActivateCamera();
+            }
             m_Tanks[i].Setup();
         }
     }

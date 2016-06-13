@@ -25,9 +25,9 @@ namespace Assets.Scripts.Tank.AI {
         protected GameObject Player;
         protected float DistanceFromPlayer;
         protected int executeCounter;
-        protected const int maxDistance = 20;
-        protected const int minDistance = 10;
-        protected const int distanceMargin = 3;
+        protected const int maxDistance = 25;
+        protected const int minDistance = 15;
+        protected const int distanceMargin = 5;
         protected const float speed = 10;
         protected const float turnSpeed = 180;
 
@@ -44,6 +44,8 @@ namespace Assets.Scripts.Tank.AI {
         public abstract void Execute();
 
         protected void TurnToEnemy() {
+            if(Player == null) return;
+
             Rigidbody.transform.rotation = Quaternion.Slerp(Rigidbody.transform.rotation,
                 Quaternion.LookRotation(Player.transform.position - Rigidbody.transform.position), 180 * Time.deltaTime);
         }
